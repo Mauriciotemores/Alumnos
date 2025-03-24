@@ -58,29 +58,52 @@
         }
     </style>
 
-    <h1>Crear Alumno</h1>
-    <div class="container">
-        <form action="{{ route('alumnos.store') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label>Nombre:</label>
-                <input type="text" name="nombre" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Correo:</label>
-                <input type="email" name="correo" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Fecha de nacimiento:</label>
-                <input type="date" name="fecha_nacimiento" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Ciudad:</label>
-                <input type="text" name="ciudad" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Guardar</button>
-            <a href="{{ route('alumnos.index') }}" class="btn btn-info">Volver a la lista</a>
-        </form>
-    </div>
+<h1>Crear Alumno</h1> 
+<div class="container">
+    <form id="alumnoForm" action="{{ route('alumnos.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Correo:</label>
+            <input type="email" name="correo" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Fecha de nacimiento:</label>
+            <input type="date" name="fecha_nacimiento" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Ciudad:</label>
+            <input type="text" name="ciudad" class="form-control">
+        </div>
+        <p id="error-message" style="color: red; display: none;">Todos los campos son obligatorios.</p>
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <a href="{{ route('alumnos.index') }}" class="btn btn-info">Volver a la lista</a>
+    </form>
+</div>
+
+<script>
+    document.getElementById('alumnoForm').addEventListener('submit', function(event) {
+        let inputs = document.querySelectorAll('.form-control');
+        let errorMessage = document.getElementById('error-message');
+        let emptyFields = false;
+
+        inputs.forEach(input => {
+            if (input.value.trim() === '') {
+                emptyFields = true;
+            }
+        });
+
+        if (emptyFields) {
+            event.preventDefault(); // Detener el envío del formulario
+            errorMessage.style.display = 'block'; // Mostrar el mensaje de error
+        } else {
+            errorMessage.style.display = 'none'; // Ocultar el mensaje si todo está lleno
+        }
+    });
+</script>
+
 @endsection
 

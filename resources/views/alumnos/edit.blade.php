@@ -60,7 +60,7 @@
 
 <h1>Editar Alumno</h1>
 <div class="container">
-    <form action="{{ route('alumnos.update', $alumno->id) }}" method="POST">
+    <form id="alumnoEditForm" action="{{ route('alumnos.update', $alumno->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -84,10 +84,32 @@
             <input type="text" name="ciudad" value="{{ $alumno->ciudad }}" class="form-control">
         </div>
 
+        <p id="error-message" style="color: red; display: none;">Todos los campos son obligatorios.</p>
+
         <button type="submit" class="btn btn-success">Actualizar</button>
-
         <a href="{{ route('alumnos.index') }}" class="btn btn-info">Volver a la lista</a>
-
     </form>
 </div>
+
+<script>
+    document.getElementById('alumnoEditForm').addEventListener('submit', function(event) {
+        let inputs = document.querySelectorAll('.form-control');
+        let errorMessage = document.getElementById('error-message');
+        let emptyFields = false;
+
+        inputs.forEach(input => {
+            if (input.value.trim() === '') {
+                emptyFields = true;
+            }
+        });
+
+        if (emptyFields) {
+            event.preventDefault(); // Detener el envío del formulario
+            errorMessage.style.display = 'block'; // Mostrar el mensaje de error
+        } else {
+            errorMessage.style.display = 'none'; // Ocultar el mensaje si todo está lleno
+        }
+    });
+</script>
+
 @endsection
