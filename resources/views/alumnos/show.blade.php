@@ -42,7 +42,7 @@
     .btn-container {
         display: flex;
         justify-content: center;
-        gap: 10px; /* Espacio entre botones */
+        gap: 10px; 
     }
     .btn-container form {
         margin: 0;
@@ -56,11 +56,42 @@
         border-radius: 5px;
         border: 1px solid #ccc;
     }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    .table th, .table td {
+        border: 1px solid #000;
+        padding: 10px;
+        text-align: left;
+    }
+    .table th {
+        background-color: #f2f2f2;
+    }
 </style>
+
 <h1>Detalles del Alumno</h1>
-<p><strong>Nombre:</strong> {{ $alumno->nombre }}</p>
-<p><strong>Correo:</strong> {{ $alumno->correo }}</p>
-<p><strong>Fecha de nacimiento:</strong> {{ $alumno->fecha_nacimiento }}</p>
-<p><strong>Ciudad:</strong> {{ $alumno->ciudad }}</p>
+<div class="table-container">
+    <table class="table">
+        <tr>
+            <th>Nombre</th>
+            <td>{{ $alumno->nombre }}</td>
+        </tr>
+        <tr>
+            <th>Correo</th>
+            <td>{{ $alumno->correo }}</td>
+        </tr>
+        <tr>
+            <th>Fecha de nacimiento</th>
+            <td>{{ $alumno->fecha_nacimiento }}</td>
+        </tr>
+        <tr>
+            <th>Ciudad</th>
+            <td>{{ $alumno->ciudad }}</td>
+        </tr>
+    </table>
+</div>
+
 <a href="{{ route('alumnos.index') }}" class="btn btn-info">Volver a la lista</a>
 @endsection
